@@ -1,0 +1,3 @@
+station_id,name,node_id,capacity_per_hour,headway_min,current_load_pct
+METRO_N,Marina City North,METRO_N,24000,2.5,82.0
+METRO_S,Stadium South,METRO_S,18000,4.0,61.0

@@ -1,0 +1,3 @@
+event_id,ts_utc,gate_id,event_type,fans_delta,note
+EV-001,2026-11-20T17:30:00Z,ALL,EGRESS_START,0,Final whistle. Phased egress begins on all six gates.
+EV-002,2026-11-20T17:41:00Z,G4,CROWD_SURGE,6300,Concourse C closed (spill). Sections 112-131 redirected to Gate 4.

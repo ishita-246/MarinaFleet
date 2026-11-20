@@ -1,0 +1,7 @@
+gate_id,name,x_km,y_km,pickup_zone_node,fans_queued,baseline_expected_fans,ridehail_share,avg_party_size,curb_slots,curb_lanes,curb_throughput_vpm,walk_capacity_ppm
+G1,Gate 1,0.0,0.2,PZ1,3200,3500,0.2,2.3,20,2,24.0,900
+G2,Gate 2,0.1732,0.1,PZ2,2900,3500,0.2,2.3,20,2,24.0,900
+G3,Gate 3,0.1732,-0.1,PZ3,3400,3500,0.2,2.3,20,2,24.0,900
+G4,Gate 4,0.0,-0.2,PZ4,9800,3500,0.2,2.3,20,2,24.0,900
+G5,Gate 5,-0.1732,-0.1,PZ5,2600,3500,0.2,2.3,20,2,24.0,900
+G6,Gate 6,-0.1732,0.1,PZ6,3100,3500,0.2,2.3,20,2,24.0,900

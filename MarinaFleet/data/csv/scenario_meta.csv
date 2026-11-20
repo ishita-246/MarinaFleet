@@ -1,0 +1,11 @@
+key,value
+event_name,Marina City Derby - event night
+venue,Marina City Stadium
+snapshot_time_utc,2026-11-20T17:48:00Z
+egress_start_utc,2026-11-20T17:30:00Z
+total_fans,60000
+fans_remaining,25000
+target_clear_minutes,90
+historical_peak_wait_min,35
+timezone,Asia/Dubai
+seed,42

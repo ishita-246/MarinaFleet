@@ -1,0 +1,62 @@
+
+=== MarinaFleet run RUN-20261120T102112-1BA9 | backend mock (mock-deterministic-v1) | weather clear ===
+
+--- AGENT vs CODE TRACE ---
+[ 1] AGENT (LLM)    Chose tool: get_egress_and_fleet_snapshot     DECIDED          weather=clear  |  rationale: Start every cycle from a code-verified telemetry snapshot.
+[ 1] CODE (Python)  Executed get_egress_and_fleet_snapshot        OK               Snapshot loaded (clear). Surge flags: ['G4']. Untrusted chargers: ['CH_JBR', 'CH_MEDIA']
+[ 2] AGENT (LLM)    Chose tool: run_ev_dispatch_optimizer         DECIDED          priority_gates=['G4'], strategy=surge_first_battery_safe  |  rationale: Surge at G4 (9800 fans, 2.8x expected, est. wait 35.5 min). Prioritise surge g
+[ 2] CODE (Python)  Executed run_ev_dispatch_optimizer            OK               Optimizer (surge_first_battery_safe, priority ['G4']): 380 safe rides, 2 unsafe dispatches blocked, 66 charger orders, 75 stale/offline routings refus
+[ 3] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=RIDE_DISPATCH, justification=Dispatch 380 battery-safe assignments; 2 nearest-car dispatches were blocked by ...  |  rationale: Dispatch 38
+[ 3] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         RIDE_DISPATCH: EXECUTED - 380 executed, 0 blocked by guards
+[ 4] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=CHARGER_RESERVATION, justification=Reserve 66 verified charger slots; code refused 75 routings to stale/offline hub...  |  rationale: Reser
+[ 4] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         CHARGER_RESERVATION: EXECUTED - 66 executed, 0 blocked by guards
+[ 5] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=MOBILE_CHARGER_REQUEST, justification=15 vehicles cannot safely reach any verified hub; keep them parked and request m...  |  rationale: 15
+[ 5] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         MOBILE_CHARGER_REQUEST: EXECUTED - 15 executed, 0 blocked by guards
+[ 6] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=REBALANCE, justification=Pre-position 29 healthy vehicles toward priority gates (478.0 km) to absorb the ...  |  rationale: Pre-position 29
+[ 6] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         REBALANCE: EXECUTED - 29 executed, 0 blocked by guards
+[ 7] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=BUS_DEPLOYMENT, justification=Shift overflow to 30 feeder buses instead of waiting for robotaxis.  |  rationale: Shift overflow to 30 feede
+[ 7] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         BUS_DEPLOYMENT: EXECUTED - 30 executed, 0 blocked by guards
+[ 8] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=METRO_ANNOUNCEMENT, justification=Publish 6 metro announcements for remaining overflow.  |  rationale: Publish 6 metro announcements for re
+[ 8] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         METRO_ANNOUNCEMENT: EXECUTED - 6 executed, 0 blocked by guards
+[ 9] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=RIDER_GUIDANCE, justification=Nudge fans to walk about 200 m to neighbouring gates with shorter pickup queues....  |  rationale: Nudge fans
+[ 9] CODE (Python)  Executed dispatch_fleet_or_charger_order      EXECUTED         RIDER_GUIDANCE: EXECUTED - 2 executed, 0 blocked by guards
+[10] AGENT (LLM)    Chose tool: dispatch_fleet_or_charger_order   DECIDED          order_type=PICKUP_ZONE_LANE_REALLOCATION, gate_id=G4, justification=Reallocate 1 general-traffic lane on the stadium ring road at PZ4 to robotaxi pi..
+[10] CODE (Python)  Executed dispatch_fleet_or_charger_order      PENDING_APPROVAL PICKUP_ZONE_LANE_REALLOCATION NOT executed: routed to Human Operator Approval gate (APR-66F34D28)
+[11] AGENT (LLM)    Chose tool: finish                            DECIDED          report=OPERATOR SITUATION REPORT (agent narrative; all figures quoted from Python tool ...  |  rationale: Summarise decisions and trade-offs for the d
+[11] AGENT (LLM)    Wrote operator situation report               DONE             OPERATOR SITUATION REPORT (agent narrative; all figures quoted from Python tool outputs)
+
+* CROWD: Surge at G4: 9800 fans queued, 2.8x expected, est. 
+
+--- CHARGER REFUSALS (code-generated reasons, one example per refused hub) ---
+  75 refusals, 58 rerouted to verified hubs
+  RT-0730 (6.4%): REFUSED CH_JBR: telemetry is STALE (23 min old > 5 min limit); reported 16 free slots are cached and unverified -> rerouted to CH_MARINA
+  RT-0738 (6.8%): REFUSED CH_MEDIA: node is OFFLINE (last telemetry 41 min ago) -> rerouted to CH_STADIUM
+
+--- APPROVAL GATE: APR-66F34D28 is PENDING_APPROVAL ---
+  Attempt to execute WITHOUT token -> REFUSED: REFUSED PICKUP_ZONE_LANE_REALLOCATION: physical traffic change requires a Human Operator approval token (no approval token supplied)
+  Operator decision -> EXECUTED: APPROVED by duty-operator-cli. Code verified the one-time token and EXECUTED PICKUP_ZONE_LANE_REALLOCATION at PZ4.
+
+--- OPERATOR SITUATION REPORT ---
+OPERATOR SITUATION REPORT (agent narrative; all figures quoted from Python tool outputs)
+
+* CROWD: Surge at G4: 9800 fans queued, 2.8x expected, est. pickup wait 35.5 min.
+* CHARGERS: CH_JBR excluded (STALE). Code reason: REFUSED CH_JBR: telemetry is STALE (23 min old > 5 min limit); reported 16 free slots are cached and unverified
+* CHARGERS: CH_MEDIA excluded (OFFLINE). Code reason: REFUSED CH_MEDIA: node is OFFLINE (last telemetry 41 min ago)
+* FLEET: 380 rides dispatched, all above the 15% reserve; 2 unsafe nearest-car dispatches blocked; 66 vehicles sent to verified chargers; 75 routings to stale/offline hubs refused (58 rerouted to verified hubs; the rest are held, waitlisted or get a mobile charger: 15 mobile-charger requests).
+* MULTI-MODAL: 30 feeder buses deployed, 6 metro announcements, rider guidance active.
+* TRADE-OFF: battery-safe dispatch gives mean pickup 13.8 min vs naive 12.7 min, but naive dispatch would strand 12 vehicles, leave 74 below reserve and make 40 failed charger trips. Peak gate queue: 35.5 -> 19.1 min with rider guidance.
+* ACTION REQUIRED: lane reallocation request APR-66F34D28 is PENDING_APPROVAL. If approved, code estimates peak queue 16.4 min. Nothing physical has changed yet.
+
+KPI APPENDIX (computed by Python, not the LLM)
+Metric                                   Naive  Greedy+15%  MarinaFleet
+Mean rider pickup wait (min)              12.7        14.3         13.8
+P90 rider pickup wait (min)               17.4        20.7         19.7
+Pickup deadhead (km)                    1758.5      2174.3       2073.2
+Wasted km to dead/stale hubs             107.4           -          0.0
+Stranded vehicles                           12           0            0
+Dispatches below 15% reserve                74           0            0
+Failed charger attempts                     40           -            0
+Peak gate pickup-queue wait (min)         35.5           -         19.1
+If the lane reallocation is approved, peak queue wait -> 16.4 min.
+
+Audit rows written for this run: 26 (ops DB: /home/claude/MarinaFleet/runtime/marina_ops.sqlite; JSONL: /home/claude/MarinaFleet/runtime/audit_log.jsonl)

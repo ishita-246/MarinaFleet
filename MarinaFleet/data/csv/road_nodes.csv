@@ -1,0 +1,34 @@
+node_id,name,kind,x_km,y_km
+G1,Gate 1,gate,0.0,0.2
+G2,Gate 2,gate,0.1732,0.1
+G3,Gate 3,gate,0.1732,-0.1
+G4,Gate 4,gate,0.0,-0.2
+G5,Gate 5,gate,-0.1732,-0.1
+G6,Gate 6,gate,-0.1732,0.1
+PZ1,Pickup Zone 1,pickup_zone,0.0,0.55
+PZ2,Pickup Zone 2,pickup_zone,0.4763,0.275
+PZ3,Pickup Zone 3,pickup_zone,0.4763,-0.275
+PZ4,Pickup Zone 4,pickup_zone,0.0,-0.55
+PZ5,Pickup Zone 5,pickup_zone,-0.4763,-0.275
+PZ6,Pickup Zone 6,pickup_zone,-0.4763,0.275
+STAGE_E,East Robotaxi Staging (venue charging hub),staging,1.2,-0.3
+STAGE_W,West Robotaxi Staging,staging,-1.2,0.3
+METRO_N,Marina City North Metro,metro,0.9,0.9
+METRO_S,Stadium South Metro,metro,-0.8,-0.9
+DEPOT_BUS,Feeder Bus Depot,depot,-1.5,-2.0
+MARINA,Dubai Marina,district,2.5,1.5
+JBR,JBR Walk,district,3.5,3.0
+JLT,Jumeirah Lakes Towers,district,1.0,-2.5
+MEDIA,Media City,district,-1.5,3.5
+BARSHA,Al Barsha,district,-3.5,-1.0
+TECOM,TECOM,district,-4.0,2.5
+PALM,Palm Jumeirah,district,4.5,6.0
+INTERNET,Internet City,district,-0.5,5.0
+SPORTS,Sports City,district,2.0,-6.5
+ALQUOZ,Al Quoz,district,-7.0,0.5
+BBAY,Business Bay,district,-10.0,4.5
+DOWNTOWN,Downtown,district,-11.5,6.0
+JVC,Jumeirah Village,district,-2.5,-5.5
+DIP,Investments Park,district,3.5,-10.0
+DEIRA,Deira,district,-18.0,10.0
+AIRPORT,DXB Airport,district,-20.0,12.0

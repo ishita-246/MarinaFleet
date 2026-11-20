@@ -1,0 +1,3 @@
+notice_id,charger_id,ts_utc,severity,message
+CN-01,CH_JBR,2026-11-20T17:26:00Z,WARNING,Telemetry gateway timeout; serving cached slot availability.
+CN-02,CH_MEDIA,2026-11-20T17:08:00Z,CRITICAL,"Hub offline: grid feeder fault, all dispensers de-energised."
